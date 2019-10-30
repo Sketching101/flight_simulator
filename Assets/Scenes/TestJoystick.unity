@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 345190115}
   - component: {fileID: 345190114}
   - component: {fileID: 345190113}
-  - component: {fileID: 345190112}
   - component: {fileID: 345190111}
   m_Layer: 0
   m_Name: CockpitEquipments_Joystick2-Handle
@@ -233,35 +232,18 @@ Transform:
   m_Father: {fileID: 1425980972}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &345190111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 345190109}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_allowOffhandGrab: 1
-  m_snapPosition: 0
-  m_snapOrientation: 0
-  m_snapOffset: {fileID: 0}
-  m_grabPoints: []
---- !u!136 &345190112
-CapsuleCollider:
+--- !u!135 &345190111
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 345190109}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.03
-  m_Height: 0.19088802
-  m_Direction: 1
-  m_Center: {x: -0.0000000037252903, y: 0.106815845, z: 0.0263113}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: -0.0000000037252903, y: 0.19, z: 0.026311062}
 --- !u!54 &345190113
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -386,15 +368,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0056
       objectReference: {fileID: 0}
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.748
       objectReference: {fileID: 0}
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.75
+      value: -0.496
       objectReference: {fileID: 0}
     - target: {fileID: 4032153296153984, guid: efe266538a8dcda4dbd04fbff7997053, type: 2}
       propertyPath: m_LocalRotation.x
@@ -419,7 +401,7 @@ Prefab:
     - target: {fileID: 114690586124112288, guid: efe266538a8dcda4dbd04fbff7997053,
         type: 2}
       propertyPath: _trackingOriginType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe266538a8dcda4dbd04fbff7997053, type: 2}
@@ -465,10 +447,10 @@ HingeJoint:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 996235341}
   m_ConnectedBody: {fileID: 345190113}
-  m_Anchor: {x: 0, y: 0.0108016115, z: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.02656781, z: 0.000028682873}
+  m_ConnectedAnchor: {x: 0, y: 0.015766196, z: 0.000028682873}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -551,34 +533,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 996235341}
   m_Mesh: {fileID: 4300050, guid: 660686678d5f55947881d7fe1a8292c1, type: 3}
---- !u!1 &1097927567
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1097927568}
-  m_Layer: 0
-  m_Name: Joystick Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1097927568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1097927567}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1178352, y: -0.46596658, z: -0.19026601}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1425980971
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1425980972
 Transform:
   m_ObjectHideFlags: 0
@@ -673,6 +627,48 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+--- !u!1001 &1574357383
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.049
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.053
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.188
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454424040952036, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2435a1a8fec81e428c8714866e5cc51, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1803240728
 GameObject:
   m_ObjectHideFlags: 0
