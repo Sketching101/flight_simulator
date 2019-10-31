@@ -617,6 +617,11 @@
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\Helpers\OVRMicInput.cs" />
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceMod.cs" />
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceModContext.cs" />
+    <Compile Include="Assets\Scripts\Manual Controls\Joystick.cs" />
+    <Compile Include="Assets\Scripts\Manual Controls\SimpleAnchor.cs" />
+    <Compile Include="Assets\Scripts\Manual Controls\Throttle.cs" />
+    <Compile Include="Assets\Scripts\PlayerLocation\PlayerPosInit.cs" />
+    <Compile Include="Assets\Scripts\Ship Controls\ShipController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\HiRezSpaceshipsCreatorFree\Readme.txt" />
