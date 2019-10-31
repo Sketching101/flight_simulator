@@ -24,6 +24,9 @@ namespace Controls
         Vector3 OriginalTopPosition;
         [SerializeField] float DistToOriginalTopPosition;
 
+        [Header("Output")]
+        [SerializeField] private Vector3 JoystickXYOut;
+
         float DistCovered = 0.0f;
         float speed = 1.5f;
         float startTime = 0.0f;
@@ -58,7 +61,15 @@ namespace Controls
         private void UpdateValues()
         {
             Vector3 NewBaseToGripNorm = (GripAnchor.localPosition - BaseAnchor.localPosition).normalized;
-            if(NewBaseToGripNorm != BaseToGripNorm)
+            Vector3 CompToOrigPos = (GripAnchor.localPosition - OriginalTopPosition);
+
+            JoystickXYOut = new Vector3();
+            if (Mathf.Abs(CompToOrigPos.x) > 0.03)
+                JoystickXYOut.x = CompToOrigPos.x;
+            if (Mathf.Abs(CompToOrigPos.z) > 0.03)
+                JoystickXYOut.y = CompToOrigPos.z;
+
+            if (NewBaseToGripNorm != BaseToGripNorm)
             {
                 BaseToGripNorm = (GripAnchor.localPosition - BaseAnchor.localPosition).normalized;
                 TopAnchor.localPosition = BaseToGripNorm * BaseToTopDist;
@@ -79,15 +90,18 @@ namespace Controls
 
             while (!GripObject.isGrabbed && DistToOriginalTopPosition > 0.01f)
             {
-                Debug.Log("Looping");
                 float distCovered = (Time.time - startTime) * speed;
                 // Fraction of journey completed equals current distance divided by total distance.
                 float fractionOfJourney = distCovered / journeyLength;
                 GripAnchor.localPosition = Vector3.Lerp(StartPos, OriginalTopPosition, fractionOfJourney);
                 yield return null;
             }
-            Debug.Log("Distance Complete or grabbed");
             yield return null;
+        }
+
+        public Vector3 GetJoystickOut()
+        {
+            return JoystickXYOut;
         }
     }
 }
