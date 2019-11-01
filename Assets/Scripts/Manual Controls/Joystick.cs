@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controls
+namespace ManualControls
 {
     public class Joystick : MonoBehaviour
     {
@@ -31,6 +31,7 @@ namespace Controls
         float speed = 1.5f;
         float startTime = 0.0f;
 
+        [SerializeField]
         bool GrabbedFlag = false;
 
         // Use this for initialization
@@ -101,7 +102,7 @@ namespace Controls
 
         public Vector3 GetJoystickOut()
         {
-            return JoystickXYOut;
+            return JoystickXYOut * 200;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controls
+namespace ManualControls
 {
     public class Throttle : MonoBehaviour
     {
