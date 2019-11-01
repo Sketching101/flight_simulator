@@ -47,12 +47,13 @@ namespace ManualControls
         {
             UpdateValues();
             RotateJoystick();
-            if(!GripObject.isGrabbed && GrabbedFlag)
+            if (!GripObject.isGrabbed && GrabbedFlag)
             {
                 GrabbedFlag = false;
                 Debug.Log("Let go");
                 StartCoroutine(OnLetGo());
-            } else if(GripObject.isGrabbed && !GrabbedFlag)
+            }
+            else if (GripObject.isGrabbed && !GrabbedFlag)
             {
                 GrabbedFlag = true;
             }

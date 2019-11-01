@@ -14,7 +14,7 @@ namespace ManualControls
         [SerializeField] private Transform GripAnchor;
         [SerializeField] private Transform TopAnchor;
         [SerializeField] private Transform HandleAnchor;
-  
+
 
         [Header("Grabbable Object")]
         [SerializeField] private OVRGrabbable GripObject;
@@ -26,7 +26,7 @@ namespace ManualControls
         Vector3 OriginalTopPosition;
         [SerializeField] Vector3 NearestY;
         [SerializeField] float DistToSnap = 0.0f;
-        [SerializeField] float DistToOriginalTopPosition ;
+        [SerializeField] float DistToOriginalTopPosition;
         [SerializeField] float height;
 
         float offset = 0.1466741f;
@@ -89,7 +89,8 @@ namespace ManualControls
             {
                 OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
                 ThrottleYOut = (HandleAnchor.localPosition.z - BaseAnchor.localPosition.z - offset) * 10;
-            } else
+            }
+            else
             {
                 OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             }
@@ -97,7 +98,7 @@ namespace ManualControls
 
         private void RotateThrottle()
         {
-            ThrottleVis.LookAt(TopAnchor.position, -1*BaseAnchor.forward);
+            ThrottleVis.LookAt(TopAnchor.position, -1 * BaseAnchor.forward);
         }
 
         // Change so it clips onto a given position and vibrates controller
@@ -108,7 +109,7 @@ namespace ManualControls
             float journeyLength = Vector3.Distance(StartPos, NearestY);
             startTime = Time.time;
             float NearestYVal = FindNearestYVal();
-            Debug.LogFormat("Nearest Y : ({0}, {1}, {2})",NearestY.x, NearestY.y, NearestY.z);
+            Debug.LogFormat("Nearest Y : ({0}, {1}, {2})", NearestY.x, NearestY.y, NearestY.z);
             while (!GripObject.isGrabbed && (Mathf.Abs(ThrottleYOut - NearestYVal) > 0.02f))
             {
                 float distCovered = (Time.time - startTime) * speed;
@@ -144,11 +145,11 @@ namespace ManualControls
         private float FindNearestYVal()
         {
             if (ThrottleYOut > 0.6)
-                ThrottleYOut = ThrottleYSnap[2]/10;
+                ThrottleYOut = ThrottleYSnap[2] / 10;
             else if (ThrottleYOut > -0.6)
-                ThrottleYOut = ThrottleYSnap[1]/10;
+                ThrottleYOut = ThrottleYSnap[1] / 10;
             else
-                ThrottleYOut = ThrottleYSnap[0]/10;
+                ThrottleYOut = ThrottleYSnap[0] / 10;
             return ThrottleYOut;
             /*
             float LastFound = 100;

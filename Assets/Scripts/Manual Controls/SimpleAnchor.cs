@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleAnchor : MonoBehaviour {
+public class SimpleAnchor : MonoBehaviour
+{
     public Transform Anchor;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         transform.position = Anchor.position;
-	}
+    }
 }

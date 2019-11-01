@@ -50,20 +50,6 @@ namespace ShipController
 
         void Update()
         {
-            //Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
-            //float ThrottleInput = VelocityThrottle.GetThrottleOut();
-            //Debug.Log(JoystickInput);
-            
-            //pitch = JoystickInput.y;
-            //yaw = JoystickInput.x;
-
-            //acceleration_t = Axelaration * ThrottleInput;
-        }
-
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-
             Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
             float ThrottleInput = VelocityThrottle.GetThrottleOut();
             Debug.Log(JoystickInput);
@@ -72,19 +58,23 @@ namespace ShipController
             yaw = JoystickInput.x;
 
             acceleration_t = Axelaration * ThrottleInput;
-             ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
-             ShipTransform.Rotate(ShipTransform.forward, yaw * -1 /10, Space.World);
+            velocity_t += acceleration_t * Time.deltaTime;
 
-             velocity_t += acceleration_t * Time.fixedDeltaTime;
-             
-            /*
+            
             if (velocity_t <= Velocity)
                 velocity_t = Velocity;
             else if (velocity_t > max_velocity)
-                velocity_t = max_velocity;*/
+                velocity_t = max_velocity;
 
 
-            //ShipTransform.position += velocity_t * ShipTransform.forward * Time.fixedDeltaTime;
+            ShipTransform.position += velocity_t * ShipTransform.forward * Time.deltaTime;
+        }
+
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
+            ShipTransform.Rotate(ShipTransform.forward, yaw * -1 / 10, Space.World);
         }
     }
 }
