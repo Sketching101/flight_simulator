@@ -12,5 +12,6 @@ public class SimpleAnchor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.position = Anchor.position;
+        transform.rotation = Anchor.rotation;
 	}
 }
