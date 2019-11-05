@@ -65,9 +65,9 @@ namespace ManualControls
             Vector3 CompToOrigPos = (GripAnchor.localPosition - OriginalTopPosition);
 
             JoystickXYOut = new Vector3();
-            if (Mathf.Abs(CompToOrigPos.x) > 0.03)
+            if (Mathf.Abs(CompToOrigPos.x) > 0.01)
                 JoystickXYOut.x = CompToOrigPos.x;
-            if (Mathf.Abs(CompToOrigPos.z) > 0.03)
+            if (Mathf.Abs(CompToOrigPos.z) > 0.01)
                 JoystickXYOut.y = CompToOrigPos.z;
 
             if (NewBaseToGripNorm != BaseToGripNorm)

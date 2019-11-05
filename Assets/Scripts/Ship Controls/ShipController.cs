@@ -61,6 +61,7 @@ namespace ShipController
 
         void Update()
         {
+            if (PullUpMenu.Instance.Paused) return;
             if (Collided)
                 HP -= Time.deltaTime * DamageRate;
             Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
@@ -70,7 +71,6 @@ namespace ShipController
             yaw = JoystickInput.x;
 
             acceleration_t = Axelaration * ThrottleInput;
-            velocity_t += acceleration_t * Time.deltaTime;
 
             
             if (velocity_t <= MinVelocity)
@@ -79,12 +79,17 @@ namespace ShipController
                 velocity_t = max_velocity;
 
 
-            ShipTransform.position += velocity_t * ShipTransform.forward * Time.deltaTime;
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
+            if (PullUpMenu.Instance.Paused) return;
+
+            velocity_t += acceleration_t * Time.fixedDeltaTime;
+
+            ShipTransform.position += velocity_t * ShipTransform.forward * Time.fixedDeltaTime;
+
             ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
             ShipTransform.Rotate(ShipTransform.forward, yaw * -1 / 10, Space.World);
         }
