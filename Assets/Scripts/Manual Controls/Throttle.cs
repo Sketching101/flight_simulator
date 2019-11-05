@@ -17,7 +17,7 @@ namespace ManualControls
 
 
         [Header("Grabbable Object")]
-        [SerializeField] private OVRGrabbable GripObject;
+        [SerializeField] private AltVRGrabbable GripObject;
 
         private float BaseToTopDist;
 

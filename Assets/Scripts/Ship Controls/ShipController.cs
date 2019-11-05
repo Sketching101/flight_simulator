@@ -17,17 +17,28 @@ namespace ShipController
         [Header("Ship Objects")]
         [SerializeField]
         private Transform ShipTransform;
-        [SerializeField]
-        private Rigidbody ShipRB;
 
 
-        [Header("Stats")]
+        [Header("Mobility Stats")]
         [SerializeField]
-        private float Velocity;
+        private float MinVelocity;
         [SerializeField]
         private float Axelaration;
         [SerializeField]
         private float max_velocity;
+
+        bool Collided = false;
+
+        [Header("Dmg and Health Stats")]
+        [SerializeField]
+        private float HP;
+        [SerializeField]
+        private float FireRate;
+        [SerializeField]
+        private Transform[] Canons;
+
+        float DamageRate = 1f;
+
 
         [Header("Debug Values")]
         [SerializeField]
@@ -43,16 +54,17 @@ namespace ShipController
 
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
-            velocity_t = Velocity;
+            velocity_t = MinVelocity;
         }
 
         void Update()
         {
+            if (Collided)
+                HP -= Time.deltaTime * DamageRate;
             Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
             float ThrottleInput = VelocityThrottle.GetThrottleOut();
-            Debug.Log(JoystickInput);
 
             pitch = JoystickInput.y;
             yaw = JoystickInput.x;
@@ -61,8 +73,8 @@ namespace ShipController
             velocity_t += acceleration_t * Time.deltaTime;
 
             
-            if (velocity_t <= Velocity)
-                velocity_t = Velocity;
+            if (velocity_t <= MinVelocity)
+                velocity_t = MinVelocity;
             else if (velocity_t > max_velocity)
                 velocity_t = max_velocity;
 
@@ -75,6 +87,17 @@ namespace ShipController
         {
             ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
             ShipTransform.Rotate(ShipTransform.forward, yaw * -1 / 10, Space.World);
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "CrashCollision")
+                Collided = true;
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            Collided = false;
         }
     }
 }

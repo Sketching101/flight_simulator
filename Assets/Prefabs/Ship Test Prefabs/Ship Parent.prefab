@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4317395375124556}
-  - component: {fileID: 114329132752762496}
+  - component: {fileID: 114958755826831420}
   m_Layer: 0
   m_Name: Ship Parent
   m_TagString: Untagged
@@ -366,7 +366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1129113736752386
 GameObject:
   m_ObjectHideFlags: 1
@@ -913,9 +913,11 @@ GameObject:
   - component: {fileID: 4655094965225934}
   - component: {fileID: 54180563367245154}
   - component: {fileID: 114670717664952570}
+  - component: {fileID: 135011421263755658}
+  - component: {fileID: 114164151143578080}
   m_Layer: 0
   m_Name: AvatarGrabberRight
-  m_TagString: Untagged
+  m_TagString: Grabber
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,9 +949,11 @@ GameObject:
   - component: {fileID: 4553637580526506}
   - component: {fileID: 54259068495405142}
   - component: {fileID: 114227085406571428}
+  - component: {fileID: 135417039924423330}
+  - component: {fileID: 114790070464740756}
   m_Layer: 0
   m_Name: AvatarGrabberLeft
-  m_TagString: Untagged
+  m_TagString: Grabber
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1309,7 +1313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1501105167569668
 GameObject:
   m_ObjectHideFlags: 1
@@ -1369,9 +1373,10 @@ GameObject:
   - component: {fileID: 135921457741110136}
   - component: {fileID: 114803260930113766}
   - component: {fileID: 54308432800704002}
+  - component: {fileID: 114970299557036064}
   m_Layer: 0
   m_Name: Grab Handle
-  m_TagString: Untagged
+  m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1502,7 +1507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1602098501913220
 GameObject:
   m_ObjectHideFlags: 1
@@ -1880,7 +1885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1783752026902468
 GameObject:
   m_ObjectHideFlags: 1
@@ -2338,9 +2343,10 @@ GameObject:
   - component: {fileID: 114590908862938970}
   - component: {fileID: 54965780255568264}
   - component: {fileID: 136461278179793108}
+  - component: {fileID: 114404116376108428}
   m_Layer: 0
   m_Name: Grab Handle
-  m_TagString: Untagged
+  m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2994,7 +3000,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1089887545486572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 45.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4642671275215206}
@@ -7818,7 +7824,7 @@ MonoBehaviour:
   GripAnchor: {fileID: 4963226044066166}
   TopAnchor: {fileID: 4813841615346942}
   HandleAnchor: {fileID: 4639319801179866}
-  GripObject: {fileID: 114590908862938970}
+  GripObject: {fileID: 114404116376108428}
   BaseToGripNorm: {x: 0, y: 0, z: 0}
   NearestY: {x: 0, y: 0, z: 0}
   DistToSnap: 0
@@ -7833,13 +7839,28 @@ MonoBehaviour:
   - {fileID: 4364702654824926}
   - {fileID: 4327940878607062}
   ThrottleYOut: 0
+--- !u!114 &114164151143578080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350560067881506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2eed0f85976bb4c83a1e65641fd06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: 2
+  GrabbedObject: {fileID: 0}
+  GrabbableInRange: []
+  HandAnchor: {fileID: 4533883003668624}
 --- !u!114 &114227085406571428
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1359739791217314}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd425c2d06f39bf4899d07c05d0f10eb, type: 3}
   m_Name: 
@@ -7850,7 +7871,6 @@ MonoBehaviour:
   m_gripTransform: {fileID: 4483448494564552}
   m_grabVolumes:
   - {fileID: 136190293091922352}
-  - {fileID: 136565895144640920}
   m_controller: 1
   m_parentTransform: {fileID: 0}
 --- !u!114 &114264474121127138
@@ -7862,17 +7882,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a139d83bf6796734db220df8a5bfacbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114329132752762496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089887545486572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca052a9de3d190c4da0e940446499adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114399668735729012
@@ -7934,6 +7943,18 @@ MonoBehaviour:
   RightHandCustomPose: {fileID: 0}
   VoiceAmplitude: 0
   EnableMouthVertexAnimation: 0
+--- !u!114 &114404116376108428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1933969568063212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1d0d7d5cc2c9b438ed258b00710a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_grabbedBy: {fileID: 0}
 --- !u!114 &114519648407118528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7949,10 +7970,11 @@ MonoBehaviour:
   BaseAnchor: {fileID: 4705688375581568}
   GripAnchor: {fileID: 4058758759100590}
   TopAnchor: {fileID: 4330424276049782}
-  GripObject: {fileID: 114803260930113766}
+  GripObject: {fileID: 114970299557036064}
   BaseToGripNorm: {x: 0, y: 0.9902723, z: 0.13914321}
   DistToOriginalTopPosition: 0
   JoystickXYOut: {x: 0, y: 0, z: 0}
+  GrabbedFlag: 0
 --- !u!114 &114538312514081298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7970,7 +7992,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1933969568063212}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
   m_Name: 
@@ -7986,7 +8008,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350560067881506}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd425c2d06f39bf4899d07c05d0f10eb, type: 3}
   m_Name: 
@@ -7997,7 +8019,6 @@ MonoBehaviour:
   m_gripTransform: {fileID: 4399341589191918}
   m_grabVolumes:
   - {fileID: 136700945800489580}
-  - {fileID: 136360600713597274}
   m_controller: 2
   m_parentTransform: {fileID: 0}
 --- !u!114 &114745119467357290
@@ -8016,13 +8037,28 @@ MonoBehaviour:
   resetHmdPoseByMiddleMouseButton: 1
   activateKeys: 3201000031010000
   pitchKeys: 3401000033010000
+--- !u!114 &114790070464740756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359739791217314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2eed0f85976bb4c83a1e65641fd06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: 1
+  GrabbedObject: {fileID: 0}
+  GrabbableInRange: []
+  HandAnchor: {fileID: 4217358388259094}
 --- !u!114 &114803260930113766
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525691686731690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
   m_Name: 
@@ -8059,6 +8095,38 @@ MonoBehaviour:
   usePerEyeCameras: 0
   useFixedUpdateForTracking: 0
   disableEyeAnchorCameras: 0
+--- !u!114 &114958755826831420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089887545486572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5f24b2770726741ac226026b4cc361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotateJoystick: {fileID: 114519648407118528}
+  VelocityThrottle: {fileID: 114113959116451760}
+  ShipTransform: {fileID: 4317395375124556}
+  MinVelocity: 0
+  Axelaration: 4
+  max_velocity: 100
+  time_t: 0
+  yaw: 0
+  pitch: 0
+--- !u!114 &114970299557036064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525691686731690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1d0d7d5cc2c9b438ed258b00710a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_grabbedBy: {fileID: 0}
 --- !u!114 &114985510715221162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8115,6 +8183,18 @@ MonoBehaviour:
   AllowRecenter: 1
   _reorientHMDOnControllerRecenter: 1
   LateControllerUpdate: 1
+--- !u!135 &135011421263755658
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350560067881506}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135281351682611426
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -8126,6 +8206,18 @@ SphereCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135417039924423330
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1359739791217314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135921457741110136
 SphereCollider:

@@ -15,7 +15,7 @@ namespace ManualControls
         [SerializeField] private Transform TopAnchor;
 
         [Header("Grabbable Object")]
-        [SerializeField] private OVRGrabbable GripObject;
+        [SerializeField] private AltVRGrabbable GripObject;
 
         private float BaseToTopDist;
 
@@ -50,7 +50,6 @@ namespace ManualControls
             if (!GripObject.isGrabbed && GrabbedFlag)
             {
                 GrabbedFlag = false;
-                Debug.Log("Let go");
                 StartCoroutine(OnLetGo());
             }
             else if (GripObject.isGrabbed && !GrabbedFlag)
