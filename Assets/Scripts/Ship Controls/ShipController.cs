@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ManualControls;
 
-namespace ShipController
+namespace ShipControllerNS
 
 {
     public class ShipController : MonoBehaviour
@@ -52,6 +52,7 @@ namespace ShipController
         float velocity_t = 0;
         float acceleration_t = 0;
 
+        public float velocity_display = 0;
 
         // Use this for initialization
         void Awake()
@@ -61,7 +62,7 @@ namespace ShipController
 
         void Update()
         {
-            if (PullUpMenu.Instance.Paused) return;
+            if (PullUpMenu.Instance != null && PullUpMenu.Instance.Paused) return;
             if (Collided)
                 HP -= Time.deltaTime * DamageRate;
             Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
@@ -78,7 +79,7 @@ namespace ShipController
             else if (velocity_t > max_velocity)
                 velocity_t = max_velocity;
 
-
+            velocity_display = velocity_t;
         }
 
         // Update is called once per frame

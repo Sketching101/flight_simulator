@@ -34,6 +34,21 @@ namespace ManualControls
         [SerializeField]
         bool GrabbedFlag = false;
 
+        public OVRInput.Controller GrabbedBy
+        {
+            get
+            {
+                if (GripObject != null && GripObject.m_grabbedBy != null)
+                {
+                    return GripObject.m_grabbedBy.Controller;
+                }
+                else
+                {
+                    return OVRInput.Controller.None;
+                }
+            }
+        }
+
         // Use this for initialization
         void Awake()
         {

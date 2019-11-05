@@ -43,6 +43,23 @@ namespace ManualControls
         float startTime = 0.0f;
         bool GrabbedFlag = false;
 
+        OVRInput.Controller LastGrabbedBy = OVRInput.Controller.None;
+
+        public OVRInput.Controller GrabbedBy
+        {
+            get
+            {
+                if (GripObject != null && GripObject.m_grabbedBy != null)
+                {
+                    return GripObject.m_grabbedBy.Controller;
+                }
+                else
+                {
+                    return OVRInput.Controller.None;
+                }
+            }
+        }
+
         // Use this for initialization
         void Awake()
         {
@@ -87,12 +104,17 @@ namespace ManualControls
 
             if (GripObject.isGrabbed)
             {
-                OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
+                LastGrabbedBy = GrabbedBy;
+                OVRInput.SetControllerVibration(1, 1, GrabbedBy);
                 ThrottleYOut = (HandleAnchor.localPosition.z - BaseAnchor.localPosition.z - offset) * 10;
             }
             else
             {
-                OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+                if(LastGrabbedBy != OVRInput.Controller.None)
+                {
+                    OVRInput.SetControllerVibration(0, 0, LastGrabbedBy);
+                    LastGrabbedBy = OVRInput.Controller.None;
+                }
             }
         }
 
