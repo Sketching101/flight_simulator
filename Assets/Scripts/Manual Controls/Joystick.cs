@@ -80,10 +80,16 @@ namespace ManualControls
             Vector3 CompToOrigPos = (GripAnchor.localPosition - OriginalTopPosition);
 
             JoystickXYOut = new Vector3();
-            if (Mathf.Abs(CompToOrigPos.x) > 0.015)
-                JoystickXYOut.x = CompToOrigPos.x;
-            if (Mathf.Abs(CompToOrigPos.z) > 0.015)
-                JoystickXYOut.y = CompToOrigPos.z;
+
+            if (CompToOrigPos.z > 0.01f)
+                JoystickXYOut.y = CompToOrigPos.z - 0.01f;
+            else if(CompToOrigPos.z < -0.01f)
+                JoystickXYOut.y = CompToOrigPos.z + 0.01f;
+
+            if (CompToOrigPos.x > 0.01f)
+                JoystickXYOut.x = CompToOrigPos.x - 0.01f;
+            else if (CompToOrigPos.x < -0.01f)
+                JoystickXYOut.x = CompToOrigPos.x + 0.01f;
 
             if (NewBaseToGripNorm != BaseToGripNorm)
             {
@@ -118,6 +124,15 @@ namespace ManualControls
         public Vector3 GetJoystickOut()
         {
             return JoystickXYOut * 200;
+        }
+
+        public float GetYawOut()
+        {
+            if (GrabbedFlag)
+            {
+                return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, GrabbedBy).x;
+            }
+            else return 0;
         }
     }
 }
