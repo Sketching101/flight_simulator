@@ -44,9 +44,11 @@ namespace ShipControllerNS
         [SerializeField]
         private float time_t = 0;
         [SerializeField]
-        float yaw = 0.0f;
+        float roll = 0.0f;
         [SerializeField]
         float pitch = 0.0f;
+        [SerializeField]
+        float yaw = 0.0f;
 
 
         float velocity_t = 0;
@@ -69,7 +71,8 @@ namespace ShipControllerNS
             float ThrottleInput = VelocityThrottle.GetThrottleOut();
 
             pitch = JoystickInput.y;
-            yaw = JoystickInput.x;
+            roll = JoystickInput.x;
+            yaw = RotateJoystick.GetYawOut();
 
             acceleration_t = Axelaration * ThrottleInput;
 
@@ -95,7 +98,8 @@ namespace ShipControllerNS
             ShipTransform.position += velocity_t * ShipTransform.forward * Time.fixedDeltaTime;
 
             ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
-            ShipTransform.Rotate(ShipTransform.forward, yaw * -1 / 10, Space.World);
+            ShipTransform.Rotate(ShipTransform.forward, roll * -1 / 10, Space.World);
+            ShipTransform.Rotate(ShipTransform.up, yaw / 10, Space.World);
         }
 
         void OnTriggerEnter(Collider other)

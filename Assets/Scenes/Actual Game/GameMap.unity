@@ -445,8 +445,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 653582332}
-  m_LocalRotation: {x: -0.042149138, y: 0.5057937, z: 0.024753043, w: 0.8612686}
-  m_LocalPosition: {x: -101.43794, y: 9.780869, z: 254.69365}
+  m_LocalRotation: {x: -0.12823981, y: 0.48723775, z: 0.072592445, w: 0.8607464}
+  m_LocalPosition: {x: -101.328476, y: 9.893784, z: 254.66977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -554,6 +554,24 @@ Prefab:
     - target: {fileID: 4386203955732450, guid: a218c53144499a14bae67bb21554ea4c, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.809
+      objectReference: {fileID: 0}
+    - target: {fileID: 224941190569509694, guid: a218c53144499a14bae67bb21554ea4c,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114475865007476286, guid: a218c53144499a14bae67bb21554ea4c,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Rotation Joystick (hold to use):
+
+        Forward/back to change pitch,
+
+        right/left to change roll,
+
+        Press index trigger button to shoot primary weapon
+
+        Use holding controller''s thumbstick, change yaw'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a218c53144499a14bae67bb21554ea4c, type: 2}
