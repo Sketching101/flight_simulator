@@ -21,11 +21,11 @@ namespace ShipControllerNS
 
         [Header("Mobility Stats")]
         [SerializeField]
-        private float MinVelocity;
+        public float MinVelocity;
         [SerializeField]
-        private float Axelaration;
+        public float Axelaration;
         [SerializeField]
-        private float max_velocity;
+        public float MaxVelocity;
 
         bool Collided = false;
 
@@ -62,7 +62,7 @@ namespace ShipControllerNS
 
         void Update()
         {
-            if (PullUpMenu.Instance != null && PullUpMenu.Instance.Paused) return;
+            if (PullUpMenu.Instance.Paused) return;
             if (Collided)
                 HP -= Time.deltaTime * DamageRate;
             Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
@@ -76,16 +76,19 @@ namespace ShipControllerNS
             
             if (velocity_t <= MinVelocity)
                 velocity_t = MinVelocity;
-            else if (velocity_t > max_velocity)
-                velocity_t = max_velocity;
+            else if (velocity_t > MaxVelocity)
+                velocity_t = MaxVelocity;
 
             velocity_display = velocity_t;
+
+            if(transform.position.y < 0)
+                MenuSelect.Instance.LoseGame();
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (PullUpMenu.Instance.Paused) return;
+            if (PullUpMenu.Instance.gameState == PullUpMenu.GameState.Paused || PullUpMenu.Instance.gameState == PullUpMenu.GameState.Dead) return;
 
             velocity_t += acceleration_t * Time.fixedDeltaTime;
 
@@ -98,7 +101,7 @@ namespace ShipControllerNS
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "CrashCollision")
-                Collided = true;
+                MenuSelect.Instance.LoseGame();
         }
 
         void OnTriggerExit(Collider other)

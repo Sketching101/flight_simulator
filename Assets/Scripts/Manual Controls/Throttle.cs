@@ -151,7 +151,16 @@ namespace ManualControls
 
         public float GetThrottleOut()
         {
-            return ThrottleYOut * 10;
+            return ThrottleYOut;
+        }
+
+        public Vector3 GetReticleOut()
+        {
+            if (GrabbedFlag)
+            {
+                return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, GrabbedBy);
+            }
+            else return new Vector3();
         }
 
         private Vector3 FindNearestY()
@@ -167,11 +176,11 @@ namespace ManualControls
         private float FindNearestYVal()
         {
             if (ThrottleYOut > 0.6)
-                ThrottleYOut = ThrottleYSnap[2] / 10;
+                ThrottleYOut = ThrottleYSnap[2];
             else if (ThrottleYOut > -0.6)
-                ThrottleYOut = ThrottleYSnap[1] / 10;
+                ThrottleYOut = ThrottleYSnap[1];
             else
-                ThrottleYOut = ThrottleYSnap[0] / 10;
+                ThrottleYOut = ThrottleYSnap[0];
             return ThrottleYOut;
             /*
             float LastFound = 100;

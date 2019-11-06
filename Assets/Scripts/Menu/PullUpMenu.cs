@@ -12,9 +12,14 @@ public class PullUpMenu : MonoBehaviour {
 
     public enum GameState
     {
-        Paused, MainMenu, Playing
+        Paused, MainMenu, Playing, Dead
     }
 
+    public enum GameMode
+    {
+        None, Regular, Tutorial
+    }
+    public GameMode gameMode;
     public GameState gameState;
 
     int PausedFrameCount = 0;
@@ -36,7 +41,7 @@ public class PullUpMenu : MonoBehaviour {
         if(PausedFrameCount > 3)
             PausedFrame = false;
 
-        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) && gameState != GameState.MainMenu)
+        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) && gameState != GameState.MainMenu && gameState != GameState.Dead)
         {
             Paused = !Paused;
             if(Paused)

@@ -34,6 +34,11 @@ public class SceneController : MonoBehaviour {
         SceneManager.LoadScene("GameMap");
     }
 
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene("TutorialMap");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

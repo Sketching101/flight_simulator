@@ -14,14 +14,12 @@ public class Aiming : MonoBehaviour {
         int layerMask = 1 << 10;
 
         Vector3 dir = (TargetReticle.position - PlayerEye.position);
-        Debug.DrawRay(PlayerEye.position, dir * 1000, Color.yellow);
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(Source.position, dir, out hit, 4000, layerMask))
+        if (Physics.SphereCast(Source.position, 4, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
             TargetPos = hit.point;
-            Debug.DrawRay(Source.position, dir * hit.distance, Color.red);
             return (hit.transform.position - Source.position).normalized;
         } else
         {
@@ -37,7 +35,20 @@ public class Aiming : MonoBehaviour {
 
     public Vector3 FireDirectionPrimary(Transform Source)
     {
-        return Source.forward;
+        int layerMask = 1 << 10;
+
+        Vector3 dir = (TargetReticle.position - PlayerEye.position);
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.SphereCast(Source.position, 4, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
+        {
+            return (hit.transform.position - Source.position).normalized;
+        }
+        else
+        {
+            return Source.forward;
+        }
     }
 
     public Quaternion FireRotationPrimary(Vector3 dir)

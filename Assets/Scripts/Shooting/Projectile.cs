@@ -21,17 +21,19 @@ public class Projectile : MonoBehaviour {
     int CannonTurn = 0;
     int RocketTurn = 0;
 
-    public float CooldownPrimaryMax = 0.3f;
+    public int MaxProjectiles = 10;
+    int projectile_count = 0;
+    public float CooldownPrimaryMax = 0.05f;
 
     public float time_primary = 0.0f;
 
-    bool CooldownPrimary = false;
+    public bool CooldownPrimary = false;
 
     public float CooldownSecondaryMax = 1f;
 
     public float time_secondary = 0.0f;
 
-    bool CooldownSecondary = false;
+    public bool CooldownSecondary = false;
 
 
     // Use this for initialization
@@ -44,13 +46,13 @@ public class Projectile : MonoBehaviour {
     void Update()
     {
         PrimaryFire();
+        SecondaryFire();
     }
 
     private void PrimaryFire()
     {
         if (joystick.GrabbedBy != OVRInput.Controller.None && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, joystick.GrabbedBy) && !CooldownPrimary)
         {
-            Debug.Log("Fire!");
             time_primary = CooldownPrimaryMax;
             CooldownPrimary = true;
             CannonTurn++;
@@ -64,6 +66,8 @@ public class Projectile : MonoBehaviour {
             GameObject clone = Instantiate(cannonProjectile, SpawnPos.position, rot) as GameObject;
 
             clone.GetComponent<Rigidbody>().velocity = dir * (300 + shipController.velocity_display);
+            SFXManager.Instance.PlayClip(CannonTurn);
+            projectile_count++;
         }
 
         if (CooldownPrimary)
@@ -81,7 +85,6 @@ public class Projectile : MonoBehaviour {
     {
         if (throttle.GrabbedBy != OVRInput.Controller.None && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, throttle.GrabbedBy) && !CooldownSecondary)
         {
-            Debug.Log("Fire!");
             time_secondary = CooldownSecondaryMax;
             CooldownSecondary = true;
             RocketTurn++;
@@ -96,19 +99,21 @@ public class Projectile : MonoBehaviour {
 
             Vector3 dir = aimCalculator.FireDirectionSecondary(SpawnPos, out TargetPos);
             Quaternion rot = aimCalculator.FireRotationSecondary(dir);
-            GameObject clone = Instantiate(cannonProjectile, SpawnPos.position, rot) as GameObject;
+            GameObject clone = Instantiate(rocketProjectile, SpawnPos.position, rot) as GameObject;
             clone.GetComponent<RocketController>().TargetPosition = TargetPos;
 
             clone.GetComponent<Rigidbody>().velocity = dir * 300;
+
+            SFXManager.Instance.PlayClip(2 + RocketTurn);
         }
 
         if (CooldownSecondary)
         {
-            time_primary -= Time.deltaTime;
+            time_secondary -= Time.deltaTime;
 
-            if (time_primary < 0)
+            if (time_secondary < 0)
             {
-                CooldownPrimary = false;
+                CooldownSecondary = false;
             }
         }
     }

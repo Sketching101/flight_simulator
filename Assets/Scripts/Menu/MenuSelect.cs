@@ -39,7 +39,12 @@ public class MenuSelect : MonoBehaviour
 
     // Use this for initialization
     void Update () {
-        Menu = (PullUpMenu.Instance.gameState == PullUpMenu.GameState.Paused || PullUpMenu.Instance.gameState == PullUpMenu.GameState.MainMenu);
+        if(PullUpMenu.Instance.gameState == PullUpMenu.GameState.Playing)
+        {
+            return;
+        }
+
+        Menu = (PullUpMenu.Instance.gameState == PullUpMenu.GameState.Paused || PullUpMenu.Instance.gameState == PullUpMenu.GameState.MainMenu || PullUpMenu.Instance.gameState == PullUpMenu.GameState.Dead);
 
         if (joystick.GetJoystickOut().x > 0 && canSet && Menu)
         {
@@ -97,12 +102,27 @@ public class MenuSelect : MonoBehaviour
     public void StartGame()
     {
         SceneController.Instance.StartGame();
+        PullUpMenu.Instance.gameMode = PullUpMenu.GameMode.Regular;
         PullUpMenu.Instance.gameState = PullUpMenu.GameState.Playing;
     }
 
     public void MainMenu()
     {
-        SceneController.Instance.ToMainMenu();
+        PullUpMenu.Instance.gameMode = PullUpMenu.GameMode.None;
         PullUpMenu.Instance.gameState = PullUpMenu.GameState.MainMenu;
+
+        SceneController.Instance.ToMainMenu();
+    }
+
+    public void StartTutorial()
+    {
+        PullUpMenu.Instance.gameMode = PullUpMenu.GameMode.Tutorial;
+        SceneController.Instance.StartTutorial();
+        PullUpMenu.Instance.gameState = PullUpMenu.GameState.Playing;
+    }
+
+    public void LoseGame()
+    {
+        PullUpMenu.Instance.gameState = PullUpMenu.GameState.Dead;
     }
 }

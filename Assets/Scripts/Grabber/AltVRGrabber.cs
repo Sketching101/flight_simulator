@@ -23,6 +23,7 @@ public class AltVRGrabber : MonoBehaviour {
         transform.position = HandAnchor.position;
         
 
+
         if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, Controller) && GrabbableInRange.Count > 0)
         {
             GrabObject(GrabbableInRange[0]);
@@ -37,8 +38,8 @@ public class AltVRGrabber : MonoBehaviour {
         }
 
 
-        if (PullUpMenu.Instance.Paused)
-            LetGoObject();
+/*        if (PullUpMenu.Instance.Paused)
+            LetGoObject();*/
     }
 
     void OnTriggerEnter(Collider other)
