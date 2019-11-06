@@ -9,7 +9,16 @@ public class PlayerPosInit : MonoBehaviour {
     public Transform TranslateToPos;
 
 	// Use this for initialization
-	void Start () {
-        PlayerPos.position = TranslateToPos.position;// - CameraPos.position;
+	void Awake () {
+        PlayerPos.position = TranslateToPos.position - CameraPos.localPosition;
+        Debug.Log(TranslateToPos.localPosition);
 	}
+
+   /* void Update()
+    {
+        if (PlayerPos.localPosition != TranslateToPos.localPosition)
+        {
+            PlayerPos.localPosition = TranslateToPos.localPosition;
+        }    
+    }*/
 }

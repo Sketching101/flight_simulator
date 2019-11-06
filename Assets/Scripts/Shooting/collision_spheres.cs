@@ -7,6 +7,7 @@ public class collision_spheres : MonoBehaviour {
     public bool visible = true;
     public float invis_timer;
     public ParticleSystem explosionVFX;
+    public GameObject Highlight;
 
     AudioSource explosionSFX;
 
@@ -28,6 +29,12 @@ public class collision_spheres : MonoBehaviour {
                 gameObject.GetComponent<Collider>().enabled = true;
             }
         }
+    }
+
+    public void ToggleHighlight(bool toggle)
+    {
+        if(Highlight.activeSelf != toggle)
+            Highlight.SetActive(toggle);
     }
 
     private void OnTriggerEnter(Collider other)

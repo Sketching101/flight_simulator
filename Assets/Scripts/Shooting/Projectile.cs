@@ -35,6 +35,11 @@ public class Projectile : MonoBehaviour {
 
     public bool CooldownSecondary = false;
 
+    public Transform TargetReticle, ReticleHighlight;
+    public Transform PlayerEye;
+
+    collision_spheres lastCol;
+
 
     // Use this for initialization
     void Awake()
@@ -45,6 +50,34 @@ public class Projectile : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        int layerMask = 1 << 10;
+
+        Vector3 dir = (TargetReticle.position - PlayerEye.position);
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.SphereCast(PlayerEye.position, 4, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
+        {
+            collision_spheres col = hit.transform.gameObject.GetComponent<collision_spheres>();
+            if (col != null)
+            {
+                col.ToggleHighlight(true);
+                if(!ReticleHighlight.gameObject.activeSelf)
+                    ReticleHighlight.gameObject.SetActive(true);
+            }
+            if(lastCol != col && lastCol != null)
+            {
+                lastCol.ToggleHighlight(false);
+            }
+            lastCol = col;
+        }
+        else if(lastCol != null)
+        {
+            if (ReticleHighlight.gameObject.activeSelf)
+                ReticleHighlight.gameObject.SetActive(false);
+            lastCol.ToggleHighlight(false);
+        }
+
         PrimaryFire();
         SecondaryFire();
     }
@@ -65,7 +98,7 @@ public class Projectile : MonoBehaviour {
             Quaternion rot = aimCalculator.FireRotationPrimary(dir);
             GameObject clone = Instantiate(cannonProjectile, SpawnPos.position, rot) as GameObject;
 
-            clone.GetComponent<Rigidbody>().velocity = dir * (300 + shipController.velocity_display);
+            clone.GetComponent<Rigidbody>().velocity = dir * (500 + shipController.velocity_display);
             SFXManager.Instance.PlayClip(CannonTurn);
             projectile_count++;
         }
@@ -102,7 +135,7 @@ public class Projectile : MonoBehaviour {
             GameObject clone = Instantiate(rocketProjectile, SpawnPos.position, rot) as GameObject;
             clone.GetComponent<RocketController>().TargetPosition = TargetPos;
 
-            clone.GetComponent<Rigidbody>().velocity = dir * 300;
+            clone.GetComponent<Rigidbody>().velocity = dir * 500;
 
             SFXManager.Instance.PlayClip(2 + RocketTurn);
         }

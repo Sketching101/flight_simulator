@@ -72,7 +72,7 @@ namespace ShipControllerNS
 
             pitch = JoystickInput.y;
             roll = JoystickInput.x;
-            yaw = RotateJoystick.GetYawOut();
+            yaw = RotateJoystick.GetYawOut() * 5;
 
             acceleration_t = Axelaration * ThrottleInput;
 
@@ -84,7 +84,13 @@ namespace ShipControllerNS
 
             velocity_display = velocity_t;
 
-            if(transform.position.y < 0)
+            if (transform.position.y < 36)
+                MenuSelect.Instance.LoseGame();
+            if (Mathf.Abs(transform.position.x) > 2000)
+                MenuSelect.Instance.LoseGame();
+            if (Mathf.Abs(transform.position.z) > 2000)
+                MenuSelect.Instance.LoseGame();
+            if (Mathf.Abs(transform.position.y) > 2000)
                 MenuSelect.Instance.LoseGame();
         }
 
