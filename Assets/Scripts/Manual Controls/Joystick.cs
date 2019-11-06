@@ -119,5 +119,14 @@ namespace ManualControls
         {
             return JoystickXYOut * 200;
         }
+
+        public float GetYawOut()
+        {
+            if (GrabbedFlag)
+            {
+                return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, GrabbedBy).x;
+            }
+            else return 0;
+        }
     }
 }
