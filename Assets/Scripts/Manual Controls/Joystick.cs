@@ -15,7 +15,7 @@ namespace ManualControls
         [SerializeField] private Transform TopAnchor;
 
         [Header("Grabbable Object")]
-        [SerializeField] private OVRGrabbable GripObject;
+        [SerializeField] private AltVRGrabbable GripObject;
 
         private float BaseToTopDist;
 
@@ -34,6 +34,21 @@ namespace ManualControls
         [SerializeField]
         bool GrabbedFlag = false;
 
+        public OVRInput.Controller GrabbedBy
+        {
+            get
+            {
+                if (GripObject != null && GripObject.m_grabbedBy != null)
+                {
+                    return GripObject.m_grabbedBy.Controller;
+                }
+                else
+                {
+                    return OVRInput.Controller.None;
+                }
+            }
+        }
+
         // Use this for initialization
         void Awake()
         {
@@ -47,12 +62,12 @@ namespace ManualControls
         {
             UpdateValues();
             RotateJoystick();
-            if(!GripObject.isGrabbed && GrabbedFlag)
+            if (!GripObject.isGrabbed && GrabbedFlag)
             {
                 GrabbedFlag = false;
-                Debug.Log("Let go");
                 StartCoroutine(OnLetGo());
-            } else if(GripObject.isGrabbed && !GrabbedFlag)
+            }
+            else if (GripObject.isGrabbed && !GrabbedFlag)
             {
                 GrabbedFlag = true;
             }
@@ -65,9 +80,9 @@ namespace ManualControls
             Vector3 CompToOrigPos = (GripAnchor.localPosition - OriginalTopPosition);
 
             JoystickXYOut = new Vector3();
-            if (Mathf.Abs(CompToOrigPos.x) > 0.03)
+            if (Mathf.Abs(CompToOrigPos.x) > 0.015)
                 JoystickXYOut.x = CompToOrigPos.x;
-            if (Mathf.Abs(CompToOrigPos.z) > 0.03)
+            if (Mathf.Abs(CompToOrigPos.z) > 0.015)
                 JoystickXYOut.y = CompToOrigPos.z;
 
             if (NewBaseToGripNorm != BaseToGripNorm)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ManualControls;
 
-namespace ShipController
+namespace ShipControllerNS
 
 {
     public class ShipController : MonoBehaviour
@@ -17,17 +17,28 @@ namespace ShipController
         [Header("Ship Objects")]
         [SerializeField]
         private Transform ShipTransform;
-        [SerializeField]
-        private Rigidbody ShipRB;
 
 
-        [Header("Stats")]
+        [Header("Mobility Stats")]
         [SerializeField]
-        private float Velocity;
+        public float MinVelocity;
         [SerializeField]
-        private float Axelaration;
+        public float Axelaration;
         [SerializeField]
-        private float max_velocity;
+        public float MaxVelocity;
+
+        bool Collided = false;
+
+        [Header("Dmg and Health Stats")]
+        [SerializeField]
+        private float HP;
+        [SerializeField]
+        private float FireRate;
+        [SerializeField]
+        private Transform[] Canons;
+
+        float DamageRate = 1f;
+
 
         [Header("Debug Values")]
         [SerializeField]
@@ -40,107 +51,62 @@ namespace ShipController
 
         float velocity_t = 0;
         float acceleration_t = 0;
-        Vector3 JoystickInput;
-        float ThrottleInput;
+
+        public float velocity_display = 0;
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
-            velocity_t = Velocity;
-            JoystickInput = RotateJoystick.GetJoystickOut();
-            ThrottleInput = VelocityThrottle.GetThrottleOut();
-
+            velocity_t = MinVelocity;
         }
 
-        void LateUpdate()
+        void Update()
         {
-            UpdateCoop();
+            if (PullUpMenu.Instance.Paused) return;
+            if (Collided)
+                HP -= Time.deltaTime * DamageRate;
+            Vector3 JoystickInput = RotateJoystick.GetJoystickOut();
+            float ThrottleInput = VelocityThrottle.GetThrottleOut();
+
+            pitch = JoystickInput.y;
+            yaw = JoystickInput.x;
+
+            acceleration_t = Axelaration * ThrottleInput;
+
+            
+            if (velocity_t <= MinVelocity)
+                velocity_t = MinVelocity;
+            else if (velocity_t > MaxVelocity)
+                velocity_t = MaxVelocity;
+
+            velocity_display = velocity_t;
+
+            if(transform.position.y < 0)
+                MenuSelect.Instance.LoseGame();
         }
 
-        // Update is called several times per frame
+        // Update is called once per frame
         void FixedUpdate()
         {
-            FixedUpdateCoop(true);
-        }
-
-        private void UpdateCoop()
-        {
-            JoystickInput = RotateJoystick.GetJoystickOut();
-            ThrottleInput = VelocityThrottle.GetThrottleOut();
-
-            pitch = JoystickInput.y * 3;
-            yaw = JoystickInput.x * -1;
-
-            acceleration_t = Axelaration * ThrottleInput;
-        }
-
-        private void FixedUpdateCoop(bool move)
-        {
-            velocity_t += acceleration_t * Time.fixedDeltaTime;
-
-            if (velocity_t <= Velocity)
-                velocity_t = Velocity;
-            else if (velocity_t > max_velocity)
-                velocity_t = max_velocity;
-
-            ShipTransform.Rotate(ShipTransform.right, pitch * Time.fixedDeltaTime, Space.World);
-
-            ShipTransform.Rotate(ShipTransform.forward, yaw * Time.fixedDeltaTime, Space.World);
-
-            if (move)
-                ShipTransform.Translate(velocity_t * ShipTransform.forward * Time.fixedDeltaTime);
-        }
-
-        private void FixedUpdateFun(bool move)
-        {
-            ShipTransform.Rotate(ShipTransform.right, pitch * Time.fixedDeltaTime, Space.World);
-
-            ShipTransform.Rotate(ShipTransform.forward, yaw * Time.fixedDeltaTime, Space.World);
-
-            if(move)
-                ShipTransform.Translate(velocity_t * ShipTransform.forward * Time.fixedDeltaTime);
-
-            JoystickInput = RotateJoystick.GetJoystickOut();
-            ThrottleInput = VelocityThrottle.GetThrottleOut();
-
-            pitch = JoystickInput.y * 3;
-            yaw = JoystickInput.x * -1;
-
-            acceleration_t = Axelaration * ThrottleInput;
+            if (PullUpMenu.Instance.gameState == PullUpMenu.GameState.Paused || PullUpMenu.Instance.gameState == PullUpMenu.GameState.Dead) return;
 
             velocity_t += acceleration_t * Time.fixedDeltaTime;
 
+            ShipTransform.position += velocity_t * ShipTransform.forward * Time.fixedDeltaTime;
 
-            if (velocity_t <= Velocity)
-                velocity_t = Velocity;
-            else if (velocity_t > max_velocity)
-                velocity_t = max_velocity;
+            ShipTransform.Rotate(ShipTransform.right, pitch / 10, Space.World);
+            ShipTransform.Rotate(ShipTransform.forward, yaw * -1 / 10, Space.World);
         }
 
-        private void UpdateFun(bool move)
+        void OnTriggerEnter(Collider other)
         {
-            ShipTransform.Rotate(ShipTransform.right, pitch * Time.deltaTime, Space.World);
+            if (other.gameObject.tag == "CrashCollision")
+                MenuSelect.Instance.LoseGame();
+        }
 
-            ShipTransform.Rotate(ShipTransform.forward, yaw * Time.deltaTime, Space.World);
-
-            if (move)
-                ShipTransform.Translate(velocity_t * ShipTransform.forward * Time.deltaTime);
-
-            JoystickInput = RotateJoystick.GetJoystickOut();
-            ThrottleInput = VelocityThrottle.GetThrottleOut();
-
-            pitch = JoystickInput.y * 3;
-            yaw = JoystickInput.x * -1;
-
-            acceleration_t = Axelaration * ThrottleInput;
-
-            velocity_t += acceleration_t * Time.deltaTime;
-
-
-            if (velocity_t <= Velocity)
-                velocity_t = Velocity;
-            else if (velocity_t > max_velocity)
-                velocity_t = max_velocity;
+        void OnTriggerExit(Collider other)
+        {
+            Collided = false;
         }
     }
 }

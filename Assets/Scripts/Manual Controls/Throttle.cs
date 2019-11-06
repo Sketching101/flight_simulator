@@ -14,10 +14,10 @@ namespace ManualControls
         [SerializeField] private Transform GripAnchor;
         [SerializeField] private Transform TopAnchor;
         [SerializeField] private Transform HandleAnchor;
-  
+
 
         [Header("Grabbable Object")]
-        [SerializeField] private OVRGrabbable GripObject;
+        [SerializeField] private AltVRGrabbable GripObject;
 
         private float BaseToTopDist;
 
@@ -26,7 +26,7 @@ namespace ManualControls
         Vector3 OriginalTopPosition;
         [SerializeField] Vector3 NearestY;
         [SerializeField] float DistToSnap = 0.0f;
-        [SerializeField] float DistToOriginalTopPosition ;
+        [SerializeField] float DistToOriginalTopPosition;
         [SerializeField] float height;
 
         float offset = 0.1466741f;
@@ -42,6 +42,23 @@ namespace ManualControls
         float speed = 1.5f;
         float startTime = 0.0f;
         bool GrabbedFlag = false;
+
+        OVRInput.Controller LastGrabbedBy = OVRInput.Controller.None;
+
+        public OVRInput.Controller GrabbedBy
+        {
+            get
+            {
+                if (GripObject != null && GripObject.m_grabbedBy != null)
+                {
+                    return GripObject.m_grabbedBy.Controller;
+                }
+                else
+                {
+                    return OVRInput.Controller.None;
+                }
+            }
+        }
 
         // Use this for initialization
         void Awake()
@@ -87,17 +104,23 @@ namespace ManualControls
 
             if (GripObject.isGrabbed)
             {
-                OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
+                LastGrabbedBy = GrabbedBy;
+                OVRInput.SetControllerVibration(1, 1, GrabbedBy);
                 ThrottleYOut = (HandleAnchor.localPosition.z - BaseAnchor.localPosition.z - offset) * 10;
-            } else
+            }
+            else
             {
-                OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+                if(LastGrabbedBy != OVRInput.Controller.None)
+                {
+                    OVRInput.SetControllerVibration(0, 0, LastGrabbedBy);
+                    LastGrabbedBy = OVRInput.Controller.None;
+                }
             }
         }
 
         private void RotateThrottle()
         {
-            ThrottleVis.LookAt(TopAnchor.position, -1*BaseAnchor.forward);
+            ThrottleVis.LookAt(TopAnchor.position, -1 * BaseAnchor.forward);
         }
 
         // Change so it clips onto a given position and vibrates controller
@@ -108,7 +131,7 @@ namespace ManualControls
             float journeyLength = Vector3.Distance(StartPos, NearestY);
             startTime = Time.time;
             float NearestYVal = FindNearestYVal();
-            Debug.LogFormat("Nearest Y : ({0}, {1}, {2})",NearestY.x, NearestY.y, NearestY.z);
+            Debug.LogFormat("Nearest Y : ({0}, {1}, {2})", NearestY.x, NearestY.y, NearestY.z);
             while (!GripObject.isGrabbed && (Mathf.Abs(ThrottleYOut - NearestYVal) > 0.02f))
             {
                 float distCovered = (Time.time - startTime) * speed;
@@ -128,7 +151,16 @@ namespace ManualControls
 
         public float GetThrottleOut()
         {
-            return ThrottleYOut * 10;
+            return ThrottleYOut;
+        }
+
+        public Vector3 GetReticleOut()
+        {
+            if (GrabbedFlag)
+            {
+                return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, GrabbedBy);
+            }
+            else return new Vector3();
         }
 
         private Vector3 FindNearestY()
@@ -144,11 +176,11 @@ namespace ManualControls
         private float FindNearestYVal()
         {
             if (ThrottleYOut > 0.6)
-                ThrottleYOut = ThrottleYSnap[2]/10;
+                ThrottleYOut = ThrottleYSnap[2];
             else if (ThrottleYOut > -0.6)
-                ThrottleYOut = ThrottleYSnap[1]/10;
+                ThrottleYOut = ThrottleYSnap[1];
             else
-                ThrottleYOut = ThrottleYSnap[0]/10;
+                ThrottleYOut = ThrottleYSnap[0];
             return ThrottleYOut;
             /*
             float LastFound = 100;
