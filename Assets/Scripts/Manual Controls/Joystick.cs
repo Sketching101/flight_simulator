@@ -88,7 +88,7 @@ namespace ManualControls
 
             if (CompToOrigPos.x > 0.01f)
                 JoystickXYOut.x = CompToOrigPos.x - 0.01f;
-            else if (CompToOrigPos.z < -0.01f)
+            else if (CompToOrigPos.x < -0.01f)
                 JoystickXYOut.x = CompToOrigPos.x + 0.01f;
 
             if (NewBaseToGripNorm != BaseToGripNorm)
