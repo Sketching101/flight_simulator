@@ -11,6 +11,5 @@ public class FixRotation : MonoBehaviour
     {
         gameObject.transform.position = positionAnchor.position;
         gameObject.transform.LookAt(lookAtAnchor, transform.parent.up);
-
     }
 }
