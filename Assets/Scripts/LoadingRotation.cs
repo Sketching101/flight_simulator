@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FixRotation : MonoBehaviour
+public class LoadingRotation : MonoBehaviour
 {
     public Transform positionAnchor;
-    public Transform lookAtAnchor;
 
     void Update()
     {
         gameObject.transform.position = positionAnchor.position;
-        gameObject.transform.LookAt(lookAtAnchor, transform.parent.up);
+        gameObject.transform.rotation = new Quaternion(positionAnchor.rotation.x, positionAnchor.rotation.y, 0, positionAnchor.rotation.w);
     }
 }
